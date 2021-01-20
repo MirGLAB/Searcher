@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mirglab.liza_alert_app.SettingsActivity">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button android:id="@+id/btnChangeMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Включить режим Поисковика" />
+
+            <Button android:id="@+id/btnDeleteOperations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Очистить таблицу Операции" />
+
+            <Button android:id="@+id/btnDeleteMembers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Очистить таблицу Участники" />
+
+            <Button android:id="@+id/btnDeleteGroups"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Очистить таблицу Группы" />
+
+            <Button android:id="@+id/btnDeleteMarkers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Очистить таблицу Маркеры" />
+
+            <Button android:id="@+id/btnSaveDB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Сохранить базу данных" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+            </LinearLayout>
+
+            <TextView android:id="@+id/lizaAlertForumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColorHint="#808080"
+                android:hint="Адрес страницы форума Лиза-Алерт с активными поисками (по-умолчанию http://lizaalert.org/forum/viewforum.php?f=276)" />
+
+            <EditText android:id="@+id/lizaAlertForum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint=""
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+            </LinearLayout>
+
+            <EditText android:id="@+id/coordinatorNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:hint="Телефонный номер в формате +79001002233"
+                android:inputType="phone" />
+
+            <Button android:id="@+id/settingsSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сохранить" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

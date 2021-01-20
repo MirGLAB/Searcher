@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="mirglab.liza_alert_app">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.android.nearby.messages.API_KEY"
+            android:value="AIzaSyAotiIBhRh_YeppcIyu7xknAhdi3MxJCug" />
+        <meta-data
+            android:name="com.google.android.gms.nearby.connection.SERVICE_ID"
+            android:value="@string/service_id" />
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".showOnMapActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" />
+
+        <receiver android:name=".SMSMonitor">
+            <intent-filter android:priority="100">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".GetSmsService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".SendSmsAndGpsService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="android.permission.ACCESS_FINE_LOCATION" />
+                <action android:name="android.permission.SEND_SMS" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".CreateMissionActivity" />
+        <activity android:name=".MissionActivity" />
+        <activity android:name=".GroupsActivity" />
+        <activity android:name=".DistributeGroupsActivity" />
+        <activity
+            android:name=".MissionMapSidebarActivity"
+            android:label="@string/title_activity_mission_map_sidebar"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+
+        <activity
+            android:name=".V_MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".V_MapsActivity"
+            android:label="@string/title_activity_map" />
+        <activity android:name=".V_InfoActivity" />
+
+        <service
+            android:name=".V_SendSmsAndGpsService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="android.permission.ACCESS_FINE_LOCATION" />
+                <action android:name="android.permission.SEND_SMS" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".V_GpsService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="101">
+                <action android:name="android.permission.ACCESS_FINE_LOCATION" />
+                <action android:name="android.permission.SEND_SMS" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".V_MissionActivity" />
+        <activity android:name=".V_SettingsActivity" />
+        <activity
+            android:name=".V_MissionMapSidebarActivity"
+            android:label="@string/title_activity_mission_map_sidebar"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+    </application>
+
+</manifest>

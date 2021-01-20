@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Искатель</string>
+    <string name="provider_gps">GPS</string>
+    <string name="location_settings">Location settings</string>
+    <string name="action_koord">Войти</string>
+    <string name="action_exit">Выход</string>
+    <string name="enterNumber">Введите номер</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="signIn">Войти</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="start_send_Service">Start send service</string>
+    <string name="stop_send_service">Stop send service</string>
+    <string name="start_receive_service">Start receive service</string>
+    <string name="stop_receive_service">Stop receive service</string>
+    <string name="pick_image_intent_text" />
+    <string name="delete_record">Удалить операцию</string>
+    <string name="service_id"><!-- идентификатор сервиса --></string>
+
+    <string name="startOperationCoordDialog">Введите координаты штаба:</string>
+    <string name="startOperationCoordDialogYes">Принять</string>
+    <string name="startOperationCoordDialogNo">Отмена</string>
+    <string name="action_fillmembers">Заполнить таблицу Участники</string>
+    <string name="action_deleteSP">Очистить файл данных</string>
+    <string name="title_activity_mission_map">MissionMapActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+
+    <string name="action_example">Example action</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Настройки</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_mission_map_sidebar">Искатель</string>
+
+    <string name="title_activity_map">Map</string>
+
+    <string name="joinOperationDialog">Принять участие в поисковой операции?</string>
+    <string name="joinOperationDialogYes">Принять</string>
+    <string name="joinOperationDialogNo">Отмена</string>
+
+    <string-array name="spinner_list">
+        <item>Нет опыта</item>
+        <item>Обучен</item>
+        <item>Старший</item>
+    </string-array>
+</resources>

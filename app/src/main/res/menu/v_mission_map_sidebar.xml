@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="1"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_map_type"
+        android:orderInCategory="2"
+        android:title="Тип карты"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_interval_local"
+        android:orderInCategory="3"
+        android:title="Интервал отрисовки"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_interval"
+        android:orderInCategory="4"
+        android:title="Интервал отправки"
+        app:showAsAction="never" />
+
+</menu>

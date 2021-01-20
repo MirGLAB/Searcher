@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MapsActivity">
+    <item
+        android:id="@+id/action_stopService"
+        android:orderInCategory="2"
+        android:title="Остановить прием сообщений"
+        android:onClick="onClickStopReceiveService"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_startService"
+        android:orderInCategory="1"
+        android:title="Начать прием сообщений"
+        android:onClick="onClickStartReceiveService"
+        app:showAsAction="never"/>
+
+</menu>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText android:id="@+id/dialogLtd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Широта:"
+        android:inputType="textMultiLine" />
+
+    <EditText android:id="@+id/dialogLng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Долгота:"
+        android:inputType="textMultiLine" />
+
+    <Button android:id="@+id/dialogBtnGetCoords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Взять координаты текущего положения" />
+
+</LinearLayout>

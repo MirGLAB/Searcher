@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/dialogIntervalLocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/seekBarTextLocalPreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="Интервал отрисовки маршрута"
+            android:textColorHint="#808080" />
+
+        <TextView
+            android:id="@+id/seekBarTextLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            tools:text="Отправлять каждые 1 минут" />
+
+        <SeekBar
+            android:id="@+id/seekBarLocal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="30"
+            android:progress="1"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/seekBarLocalOk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ОК"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/seekBarLocalCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Отмена"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

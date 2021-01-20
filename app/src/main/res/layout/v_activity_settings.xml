@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".V_SettingsActivity">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button android:id="@+id/btnChangeMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Включить режим Координатора" />
+
+            <Button android:id="@+id/btnDeleteOperations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Очистить таблицу Операции" />
+
+            <Button android:id="@+id/btnDeleteMarkers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Очистить таблицу Маркеры" />
+
+            <Button android:id="@+id/btnSaveDB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Сохранить базу данных" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
