@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class DataBase {
 
-    private static final String DB_NAME = "Liza_Alert_DB";
+    private static final String DB_NAME = "SEARCHER_COORDINATOR_DB";
     private static final int DB_VERSION = 1;
 
     final String DB_lostInfo = "info";

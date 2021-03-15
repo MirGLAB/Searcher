@@ -518,7 +518,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnInfoW
             //помещаем в очередь следующий цикл обновления
             handler.postDelayed(this, POPUP_POSITION_REFRESH_INTERVAL);
             try {
-                sPref = getSharedPreferences("liza_alert_sms", Context.MODE_PRIVATE);
+                sPref = getSharedPreferences("searcher_sms", Context.MODE_PRIVATE);
                 SharedPreferences.Editor ed = sPref.edit();
                 String smsText = sPref.getString("smsText", null);
                 String smsNum = sPref.getString("smsNum", null);

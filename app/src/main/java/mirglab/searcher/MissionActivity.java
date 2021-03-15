@@ -111,7 +111,7 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
     ImageView lostPhoto1, lostPhoto2, lostPhoto3;
     ArrayList<ImageView> lostPhotos;
     String photosPaths;
-    Button btnStartRequestService, btnCreateGroups, missionBtnGetCoords;
+    Button btnStartRequestService, btnStopRequestService, btnCreateGroups, missionBtnGetCoords;
     ListView listMembers;
     SimpleCursorAdapter scAdapter;
     Intent intentMaps;
@@ -126,6 +126,8 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
     LocationListener locationListener;
     LatLng centerCoords;
     boolean isImageFitToScreen;
+
+    boolean receivingMode = false;
 
     MessageListener messageListener;
 
@@ -461,47 +463,62 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
                 }
             });
 
+            /*
+            btnStopRequestService = findViewById(R.id.btnStopRequestService);
+            btnStopRequestService.setVisibility(View.INVISIBLE);
+             */
+
+            buildGoogleApiClient();
+
             btnStartRequestService = findViewById(R.id.btnStartRequestService);
+            btnStartRequestService.setTag(1);
+            btnStartRequestService.setText("Начать прием заявок");
             btnStartRequestService.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    String etLtdString = etLtd.getText().toString(), etLngString = etLng.getText().toString();
-                    Boolean etLtdEx = false, etLngEx = false;
+                    final int status = (Integer) v.getTag();
+                    if(status == 1) {
 
-                    String regexp = "\\d{2}\\.\\d{4,20}";
-                    Pattern pattern = Pattern.compile(regexp);
-                    Matcher matcher = pattern.matcher(etLtdString);
-                    if (matcher.find())
-                        etLtdEx = true;
-                    matcher = pattern.matcher(etLngString);
-                    if (matcher.find())
-                        etLngEx = true;
+                        receivingMode = true;
+                        btnStartRequestService.setText("Остановить прием заявок");
 
-                    if (etLtdEx && etLngEx) {
+                        String etLtdString = etLtd.getText().toString(), etLngString = etLng.getText().toString();
+                        Boolean etLtdEx = false, etLngEx = false;
 
-                        db.modifyOperationsFieldData("Operations", "_id", operationID, "centerLat", etLtd.getText().toString());
-                        db.modifyOperationsFieldData("Operations", "_id", operationID, "centerLng", etLng.getText().toString());
+                        String regexp = "\\d{2}\\.\\d{4,20}";
+                        Pattern pattern = Pattern.compile(regexp);
+                        Matcher matcher = pattern.matcher(etLtdString);
+                        if (matcher.find())
+                            etLtdEx = true;
+                        matcher = pattern.matcher(etLngString);
+                        if (matcher.find())
+                            etLngEx = true;
 
-                        String date = "-";
-                        String photo = "";
-                        String photoURL = "";
-                        Cursor cursor = db.getIdData("Operations", operationID);
+                        if (etLtdEx && etLngEx) {
 
-                        if (cursor.moveToFirst()) {
-                            date = cursor.getString(cursor.getColumnIndex("date"));
-                            photo = cursor.getString(cursor.getColumnIndex("lostPhotos"));
-                            photoURL = cursor.getString(cursor.getColumnIndex("photoURL"));
-                        }
-                        cursor.close(); // that's important too, otherwise you're gonna leak cursors
+                            db.modifyOperationsFieldData("Operations", "_id", operationID, "centerLat", etLtd.getText().toString());
+                            db.modifyOperationsFieldData("Operations", "_id", operationID, "centerLng", etLng.getText().toString());
 
-                        String number = CustomSharedPreferences.getDefaults("settingsNumber", context);
-                        try {
-                            byte[] bytePhoto = GZIPCompression.compress(photo);
-                            photo = Arrays.toString(bytePhoto);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                            String date = "-";
+                            String photo = "";
+                            String photoURL = "";
+                            Cursor cursor = db.getIdData("Operations", operationID);
+
+                            if (cursor.moveToFirst()) {
+                                date = cursor.getString(cursor.getColumnIndex("date"));
+                                photo = cursor.getString(cursor.getColumnIndex("lostPhotos"));
+                                photoURL = cursor.getString(cursor.getColumnIndex("photoURL"));
+                            }
+                            cursor.close(); // that's important too, otherwise you're gonna leak cursors
+
+                            String number = CustomSharedPreferences.getDefaults("settingsNumber", context);
+                            try {
+                                byte[] bytePhoto = GZIPCompression.compress(photo);
+                                photo = Arrays.toString(bytePhoto);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         /*
                         try {
                             //photo = new String(GZIPCompression.compress(photo), "UTF-8");
@@ -510,18 +527,38 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
                         } catch (IOException e) {
                             e.printStackTrace();
                         }*/
-                        if (!number.equals("")) {
-                            mPubMessage = new Message(gson.toJson("Operation " + operationID + "|" + date + "|" + lostInfo.getText() +
-                                    "|" + lostDescription.getText() + "|" + etLtdString + "|" + etLngString +
-                                    "|" + number + "|" + photoURL).getBytes(Charset.forName("UTF-8")));
-                            Log.d(LOG_TAG, mPubMessage.toString());
-                            buildGoogleApiClient();
+                            if (!number.equals("")) {
+                                mPubMessage = new Message(gson.toJson("Operation " + operationID + "|" + date + "|" + lostInfo.getText() +
+                                        "|" + lostDescription.getText() + "|" + etLtdString + "|" + etLngString +
+                                        "|" + number + "|" + photoURL).getBytes(Charset.forName("UTF-8")));
+                                Log.d(LOG_TAG, mPubMessage.toString());
+                                //buildGoogleApiClient();
+                                publish();
+                                subscribe();
+                            } else {
+                                Toast.makeText(context, "Укажите номер телефона в настройках", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(context, "Укажите номер телефона в настройках", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Координаты штаба введены в неверном формате", Toast.LENGTH_SHORT).show();
                         }
+
+                        v.setTag(0);
                     } else {
-                        Toast.makeText(context, "Координаты штаба введены в неверном формате", Toast.LENGTH_SHORT).show();
+
+                        receivingMode = false;
+                        btnStartRequestService.setText("Начать прием заявок");
+
+                        if(mPubMessage != null)
+                            unpublish();
+                        if(subscribeMessageListener != null)
+                            unsubscribe();
+
+                        Toast.makeText(context, "Прием данных завершен", Toast.LENGTH_LONG).show();
+
+                        v.setTag(1);
                     }
+
+
                 }
             });
 
@@ -819,7 +856,7 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
         // Write to SD Card
         try {
             File sdCard = Environment.getExternalStorageDirectory();
-            File dir = new File(sdCard.getAbsolutePath() + "/Liza_Alert_Coordinator");
+            File dir = new File(sdCard.getAbsolutePath() + "/Searcher_Coordinator");
             dir.mkdirs();
 
             String fileName = String.format("%d.jpg", System.currentTimeMillis());
@@ -899,36 +936,40 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
                     }
                 }).build();
 
-        Nearby.Messages.publish(mGoogleApiClient, mPubMessage, options)
-                .setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        if (status.isSuccess()) {
-                            Toast.makeText(context, "Данные операции отправлены", Toast.LENGTH_LONG).show();
-                            Log.d(LOG_TAG, "Published successfully.");
-                        } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                                    .setMessage("Не удается передать и получить данные, проверьте подключение к интернету")
-                                    .setCancelable(false)
-                                    .setPositiveButton("Повторить", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            buildGoogleApiClient();
-                                        }
-                                    })
-                                    .setNeutralButton("Открыть настройки", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
-                                        }
-                                    });
-                            builder.create();
-                            builder.show();
-                            //Toast.makeText(context, "Для отправки данных об операции требуется подключение к интернету", Toast.LENGTH_LONG).show();
-                            Log.d(LOG_TAG,"Could not publish, status = " + status);
+        if ((mGoogleApiClient != null) && (mPubMessage != null)) {
+            Nearby.Messages.publish(mGoogleApiClient, mPubMessage, options)
+                    .setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (status.isSuccess()) {
+
+                                Toast.makeText(context, "Данные операции отправлены", Toast.LENGTH_LONG).show();
+
+                                Log.d(LOG_TAG, "Published successfully.");
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                                        .setMessage("Не удается передать и получить данные, проверьте подключение к интернету")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Повторить", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                buildGoogleApiClient();
+                                            }
+                                        })
+                                        .setNeutralButton("Открыть настройки", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+                                            }
+                                        });
+                                builder.create();
+                                builder.show();
+                                //Toast.makeText(context, "Для отправки данных об операции требуется подключение к интернету", Toast.LENGTH_LONG).show();
+                                Log.d(LOG_TAG, "Could not publish, status = " + status);
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void subscribe() {
@@ -953,7 +994,9 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
                     @Override
                     public void onResult(@NonNull Status status) {
                         if (status.isSuccess()) {
+
                             Toast.makeText(context, "Данные волонтеров принимаются", Toast.LENGTH_LONG).show();
+
                             Log.d(LOG_TAG, "Subscribed successfully.");
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(context)
@@ -1001,12 +1044,26 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
         //Nearby.getMessagesClient(this).subscribe(mMessageListener);
     }
 
+    /*
     @Override
-    public void onStop() {
+    public void onResume() {
+        super.onResume();
+
+        Log.d(LOG_TAG, "Я тутсон!");
+
         if(mPubMessage != null)
             Nearby.getMessagesClient(this).unpublish(mPubMessage);
         if(subscribeMessageListener != null)
             Nearby.getMessagesClient(this).unsubscribe(subscribeMessageListener);
+    }
+     */
+
+    @Override
+    public void onStop() {
+        if(mPubMessage != null)
+            unpublish();
+        if(subscribeMessageListener != null)
+            unsubscribe();
         super.onStop();
         //Nearby.Messages.unpublish(mGoogleApiClient, mPubMessage);
         //super.onStop();
@@ -1014,10 +1071,13 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
 
     @Override
     public void onDestroy() {
+        // Вылет при повортое экрана
+        /*
         if(mPubMessage != null)
-            Nearby.getMessagesClient(this).unpublish(mPubMessage);
+            unpublish();
         if(subscribeMessageListener != null)
-            Nearby.getMessagesClient(this).unsubscribe(subscribeMessageListener);
+            unsubscribe();
+         */
         super.onDestroy();
     }
 
@@ -1036,8 +1096,10 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
                 break;
         }
         */
-        publish();
-        subscribe();
+        if(receivingMode) {
+            publish();
+            subscribe();
+        }
     }
 
     @Override

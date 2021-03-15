@@ -484,7 +484,7 @@ public class V_MissionMapSidebarActivity extends AppCompatActivity implements Na
                 String strDateFormat = "hh:mm:ss";
                 DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
                 String formattedDate= dateFormat.format(date);
-                File dir = new File(sdCard.getAbsolutePath() + "/Liza_Alert_Volunteer/" + operationID + "_" + formattedDate + ".txt");
+                File dir = new File(sdCard.getAbsolutePath() + "/Searcher_Volunteer/" + operationID + "_" + formattedDate + ".txt");
                 FileWriter writer = null;
 
                 Cursor cursor = db.getAllData("User");

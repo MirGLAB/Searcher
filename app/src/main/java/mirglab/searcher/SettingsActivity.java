@@ -103,7 +103,7 @@ public class SettingsActivity extends AppCompatActivity {
                 try {
 
                     File sdCard = Environment.getExternalStorageDirectory();
-                    File dir = new File(sdCard.getAbsolutePath() + "/Liza_Alert_Coordinator");
+                    File dir = new File(sdCard.getAbsolutePath() + "/Searcher_Coordinator");
                     dir.mkdirs();
 
                     String fileName = String.format("%d", System.currentTimeMillis());
@@ -140,6 +140,8 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         number = findViewById(R.id.coordinatorNumber);
+
+        /*
         lizaAlertForum = findViewById(R.id.lizaAlertForum);
 
         String savedText = CustomSharedPreferences.getDefaults("settingsNumber", context);
@@ -160,6 +162,8 @@ public class SettingsActivity extends AppCompatActivity {
             savedText = "http://lizaalert.org/forum/viewforum.php?f=276";
             lizaAlertForum.setText(savedText);
         }
+        */
+
         /*
         sPref = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         String savedText = sPref.getString("number", "");
@@ -184,9 +188,9 @@ public class SettingsActivity extends AppCompatActivity {
                     Toast.makeText(context, "Номер введен в неверном формате", Toast.LENGTH_LONG).show();
                 else {
                     CustomSharedPreferences.setDefaults("settingsNumber", numberStr, context);
-                    String forumStr = lizaAlertForum.getText().toString();
-                    if(!forumStr.equals(""))
-                        CustomSharedPreferences.setDefaults("settingsForum", forumStr, context);
+                    //String forumStr = lizaAlertForum.getText().toString();
+                    //if(!forumStr.equals(""))
+                    //    CustomSharedPreferences.setDefaults("settingsForum", forumStr, context);
                     Intent intent = new Intent();
                     setResult(12, intent);
                     finish();
@@ -207,8 +211,13 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            /*
             Intent intent = new Intent();
             setResult(12, intent);
+            finish();
+             */
+            Intent newIntent = new Intent(SettingsActivity.this, MainActivity.class);
+            startActivity(newIntent);
             finish();
             return true;
         }

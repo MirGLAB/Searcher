@@ -41,5 +41,35 @@
       <option name="name" value="C:\Users\mirgl\AppData\Local\Android\Sdk\extras\google\m2repository" />
       <option name="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/extras/google/m2repository" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="M:\Programs\android-sdk\extras\android\m2repository" />
+      <option name="name" value="M:\Programs\android-sdk\extras\android\m2repository" />
+      <option name="url" value="file:/M:/Programs/android-sdk/extras/android/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="M:\Programs\android-sdk\extras\google\m2repository" />
+      <option name="name" value="M:\Programs\android-sdk\extras\google\m2repository" />
+      <option name="url" value="file:/M:/Programs/android-sdk/extras/google/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="M:\Programs\android-sdk\extras\m2repository" />
+      <option name="name" value="M:\Programs\android-sdk\extras\m2repository" />
+      <option name="url" value="file:/M:/Programs/android-sdk/extras/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="C:\Program Files\Android\android-sdk\extras\m2repository" />
+      <option name="name" value="C:\Program Files\Android\android-sdk\extras\m2repository" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../Program%20Files/Android/android-sdk/extras/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="C:\Program Files\Android\android-sdk\extras\google\m2repository" />
+      <option name="name" value="C:\Program Files\Android\android-sdk\extras\google\m2repository" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../Program%20Files/Android/android-sdk/extras/google/m2repository" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="C:\Program Files\Android\android-sdk\extras\android\m2repository" />
+      <option name="name" value="C:\Program Files\Android\android-sdk\extras\android\m2repository" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../../../Program%20Files/Android/android-sdk/extras/android/m2repository" />
+    </remote-repository>
   </component>
 </project>

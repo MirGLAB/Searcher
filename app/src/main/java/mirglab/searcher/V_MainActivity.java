@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static android.support.v4.app.ActivityCompat.requestPermissions;
 
 
 public class V_MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
@@ -225,9 +226,16 @@ public class V_MainActivity extends AppCompatActivity implements LoaderManager.L
                     (ActivityCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(new String[]{Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS, Manifest.permission.ACCESS_NETWORK_STATE,
+                                        Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.WAKE_LOCK, Manifest.permission.ACCESS_COARSE_LOCATION}, 10);
+                }
+                /*
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS, Manifest.permission.ACCESS_NETWORK_STATE,
                             Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.WAKE_LOCK, Manifest.permission.ACCESS_COARSE_LOCATION}, 10);
                 }
+                 */
             }
 
             //this.deleteDatabase("Liza_Alert_DB");
@@ -399,7 +407,7 @@ public class V_MainActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     public void onClickSettings(MenuItem item) {
-        startActivityForResult(new Intent(V_MainActivity.this, V_SettingsActivity.class), 22);
+        startActivity(new Intent(V_MainActivity.this, V_SettingsActivity.class));
     }
 
     public void onClickinfo(MenuItem item)
@@ -602,7 +610,7 @@ public class V_MainActivity extends AppCompatActivity implements LoaderManager.L
                 int idColIndex = cursor.getColumnIndex("_id");
                 do {
                     Log.d(LOG_TAG, cursor.getString(idColIndex));
-                    id = Integer.parseInt(cursor.getString(idColIndex));
+                    id = Long.parseLong(cursor.getString(idColIndex));
                 } while (cursor.moveToNext());
             } else
                 Log.d(LOG_TAG, "Operations - 0 rows");

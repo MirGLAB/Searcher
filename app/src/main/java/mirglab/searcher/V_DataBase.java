@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class V_DataBase {
 
-    private static final String DB_NAME = "Volunteer";
+    private static final String DB_NAME = "SEARCHER_VOLUNTEER_DB";
     private static final int DB_VERSION = 1;
 
     final String LOG_TAG = "____";
@@ -120,6 +120,13 @@ public class V_DataBase {
         mDB.update(tableName, cv, param + "=" + paramValue, null);
     }
 
+    public void modifyFieldData(String tableName, String param, long paramValue, String field, String fieldValue) {
+        Log.d(LOG_TAG, "Modifying data in " + tableName);
+        ContentValues cv = new ContentValues();
+        cv.put(field, fieldValue);
+        mDB.update(tableName, cv, param + "=" + paramValue, null);
+    }
+
     public void addFieldData(String tableName, String param, String paramValue, String field, String fieldValue) {
         Log.d(LOG_TAG, "Adding data in " + tableName);
         paramValue = "'" + paramValue + "'";
@@ -204,7 +211,7 @@ public class V_DataBase {
             case "Operations":
                 if(getIdData(tableName, info.get(0)).getCount() == 0) {
                     Toast.makeText(mCtx, "Получены данные новой операции", Toast.LENGTH_LONG).show();
-                    cv.put("_id", Integer.parseInt(info.get(0)));
+                    cv.put("_id", Long.parseLong(info.get(0)));
                     cv.put("date", info.get(1));
                     cv.put("info", info.get(2));
                     cv.put("description", info.get(3));

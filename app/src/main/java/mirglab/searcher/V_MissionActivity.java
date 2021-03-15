@@ -313,9 +313,9 @@ public class V_MissionActivity extends AppCompatActivity implements SeekBar.OnSe
                     zone = messageParts[2];
                     Log.d(LOG_TAG, "Ваша группа: " + groupName);
                     missionGroup.setText("Ваша группа: " + groupName);
-                    db.modifyFieldData("Operations", "_id", Integer.parseInt(operationID),
+                    db.modifyFieldData("Operations", "_id", Long.parseLong(operationID),
                             "groupName", groupName);
-                    db.modifyFieldData("Operations", "_id", Integer.parseInt(operationID),
+                    db.modifyFieldData("Operations", "_id", Long.parseLong(operationID),
                             "groupZone", zone);
                     inGroup = true;
                     unpublish();
@@ -353,7 +353,7 @@ public class V_MissionActivity extends AppCompatActivity implements SeekBar.OnSe
         // Write to SD Card
         try {
             File sdCard = Environment.getExternalStorageDirectory();
-            File dir = new File(sdCard.getAbsolutePath() + "/Liza_Alert_Volunteer");
+            File dir = new File(sdCard.getAbsolutePath() + "/Searcher_Volunteer");
             dir.mkdirs();
 
             String fileName = String.format("%d.jpg", System.currentTimeMillis());

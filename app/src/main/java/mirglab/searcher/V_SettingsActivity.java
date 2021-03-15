@@ -37,15 +37,17 @@ public class V_SettingsActivity extends AppCompatActivity {
         btnChangeMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
+
                 CustomSharedPreferences.setDefaults("mode", "Coordinator", context);
-                finish();
                 Intent newIntent = new Intent(V_SettingsActivity.this, MainActivity.class);
                 startActivity(newIntent);
-                 */
+                finish();
+
+                /*
                 Intent intent = new Intent();
                 setResult(22, intent);
                 finish();
+                 */
             }
         });
 
@@ -78,7 +80,7 @@ public class V_SettingsActivity extends AppCompatActivity {
                 try {
 
                     File sdCard = Environment.getExternalStorageDirectory();
-                    File dir = new File(sdCard.getAbsolutePath() + "/Liza_Alert_Volunteer");
+                    File dir = new File(sdCard.getAbsolutePath() + "/Searcher_Volunteer");
                     dir.mkdirs();
 
                     String fileName = String.format("%d", System.currentTimeMillis());

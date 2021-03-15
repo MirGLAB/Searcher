@@ -49,6 +49,7 @@ import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.support.v4.app.ActivityCompat.requestPermissions;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -233,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
                                         });
                                         */
 
+                    //btnCreateMission = findViewById(R.id.btnCreateMission);
                     btnCreateMission = findViewById(R.id.btnCreateMission);
                     btnCreateMission.setOnClickListener(new View.OnClickListener() {
                         @Override
