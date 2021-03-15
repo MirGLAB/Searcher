@@ -175,6 +175,7 @@ public class V_SendSmsAndGpsService extends Service implements GoogleApiClient.C
 
             if (this.wakeLock == null) { //**Added this
                 this.wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyWakeLock");
+
             }
 
             if (!this.wakeLock.isHeld()) { //**Added this
