@@ -1,0 +1,25 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=53:20:3E:AD:6E:C3:32:1C:31:44:8D:8C:51:DC:4E:E9:A1:F1:EE:9F%3Bmirglab.liza_alert_app
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    53:20:3E:AD:6E:C3:32:1C:31:44:8D:8C:51:DC:4E:E9:A1:F1:EE:9F
+
+    SHA-1 certificate fingerprint:
+    53:20:3E:AD:6E:C3:32:1C:31:44:8D:8C:51:DC:4E:E9:A1:F1:EE:9F
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBube6xUl2bHj_IjZUQMDgDFaG0vARNJIE</string>
+    <string name="google_nearby_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAotiIBhRh_YeppcIyu7xknAhdi3MxJCug</string>
+</resources>
