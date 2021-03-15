@@ -28,7 +28,7 @@
             android:value="@string/google_maps_key" />
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
-            android:value="AIzaSyAotiIBhRh_YeppcIyu7xknAhdi3MxJCug" />
+            android:value="@string/google_nearby_key" />
         <meta-data
             android:name="com.google.android.gms.nearby.connection.SERVICE_ID"
             android:value="@string/service_id" />

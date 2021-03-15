@@ -142,7 +142,7 @@ public class GroupsActivity extends AppCompatActivity implements GoogleApiClient
 
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
 
-                    final String groupName = "Лиза-" + Integer.toString(ExpandableListView.getPackedPositionGroup(id)+1);
+                    final String groupName = "Группа-" + Integer.toString(ExpandableListView.getPackedPositionGroup(id)+1);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(GroupsActivity.this);
 

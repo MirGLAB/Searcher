@@ -64,7 +64,7 @@ public class SendSmsAndGpsService extends Service {
                 PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher_lzsqr)
+                        .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Searcher")
                         .setContentText("Отправка GPS координат по SMS")
                         .setContentIntent(resultPendingIntent);

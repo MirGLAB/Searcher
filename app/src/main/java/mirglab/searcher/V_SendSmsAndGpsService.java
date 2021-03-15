@@ -142,14 +142,22 @@ public class V_SendSmsAndGpsService extends Service implements GoogleApiClient.C
                         (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     NotificationChannel channel = new NotificationChannel("default",
-                            "Лиза Алерт: Волонтеры",
+                            "Искатель",
                             NotificationManager.IMPORTANCE_DEFAULT);
                     channel.setDescription("Отправка GPS-координат по СМС");
                     mNotificationManager.createNotificationChannel(channel);
                 }
+                /*
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default")
                         .setSmallIcon(R.mipmap.ic_launcher_lzsqr)
                         .setContentTitle("Лиза Алерт: Волонтеры") // title for notification
+                        .setContentText("Отправка GPS-координат по СМС")// message for notification
+                        .setContentIntent(resultPendingIntent);
+
+                 */
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("Искатель") // title for notification
                         .setContentText("Отправка GPS-координат по СМС")// message for notification
                         .setContentIntent(resultPendingIntent);
                 Notification notification = builder.build();

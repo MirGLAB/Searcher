@@ -164,7 +164,7 @@ public class DistributeGroupsActivity extends AppCompatActivity implements OnMap
         if(newGroupCount != 0) {
             if (groupCount < newGroupCount) {
                 for (int i = 0; i < newGroupCount - groupCount; i++)
-                    db.addRec("Groups", new ArrayList<String>(Arrays.asList(operationID, "Лиза")));
+                    db.addRec("Groups", new ArrayList<String>(Arrays.asList(operationID, "Группа")));
                 groupCount = newGroupCount;
             } else if (groupCount > newGroupCount) {
                 int delta = groupCount - newGroupCount;
@@ -175,7 +175,7 @@ public class DistributeGroupsActivity extends AppCompatActivity implements OnMap
                         int memberGroupColIndex = cursor.getColumnIndex("groupName");
                         int memberIdColIndex = cursor.getColumnIndex("_id");
                         do {
-                            if (cursor.getString(memberGroupColIndex).equals("Лиза-" + Integer.toString(groupCount))) {
+                            if (cursor.getString(memberGroupColIndex).equals("Группа-" + Integer.toString(groupCount))) {
                                 String memberId = cursor.getString(memberIdColIndex);
                                 db.modifyFieldData("Members", operationID, "_id", memberId, "groupName", "-");
                             }
@@ -503,9 +503,9 @@ public class DistributeGroupsActivity extends AppCompatActivity implements OnMap
             //hsv[1] = 90 + (float) Math.random() * 10;
             //hsv[2] = 50 + (float) Math.random() * 10;
             color = Color.HSVToColor(hsv);
-            db.modifyFieldData("Groups", operationID, "name", "Лиза-" + Integer.toString(j+1),
+            db.modifyFieldData("Groups", operationID, "name", "Группа-" + Integer.toString(j+1),
                     "color", Integer.toString(color));
-            db.modifyFieldData("Groups", operationID, "name", "Лиза-" + Integer.toString(j+1),
+            db.modifyFieldData("Groups", operationID, "name", "Группа-" + Integer.toString(j+1),
                     "markerColor", Float.toString(hsv[0]));
             j++;
             //colors.add(color);
@@ -828,7 +828,7 @@ public class DistributeGroupsActivity extends AppCompatActivity implements OnMap
         builder.setNeutralButton("+", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                db.addRec("Groups", new ArrayList<String>(Arrays.asList(operationID, "Лиза")));
+                db.addRec("Groups", new ArrayList<String>(Arrays.asList(operationID, "Группа")));
                 fillColors(db.getFieldData("Groups", "operation", operationID).getCount());
                 dialog.dismiss();
                 delegateZoneDialog(latLng);
@@ -852,7 +852,7 @@ public class DistributeGroupsActivity extends AppCompatActivity implements OnMap
                     int memberGroupColIndex = cursor.getColumnIndex("groupName");
                     int memberIdColIndex = cursor.getColumnIndex("_id");
                     do {
-                        if(cursor.getString(memberGroupColIndex).equals("Лиза-" + Integer.toString(groupCount))) {
+                        if(cursor.getString(memberGroupColIndex).equals("Группа-" + Integer.toString(groupCount))) {
                             String memberId = cursor.getString(memberIdColIndex);
                             db.modifyFieldData("Members", operationID, "_id", memberId, "groupName", "-");
                         }

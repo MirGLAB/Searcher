@@ -102,14 +102,14 @@ public class V_GpsService extends Service {
                         (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     NotificationChannel channel = new NotificationChannel("defaultGPS",
-                            "Лиза Алерт: Волонтеры",
+                            "Искатель",
                             NotificationManager.IMPORTANCE_DEFAULT);
                     channel.setDescription("Отрисовка маршрута");
                     mNotificationManager.createNotificationChannel(channel);
                 }
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "defaultGPS")
-                        .setSmallIcon(R.mipmap.ic_launcher_lzsqr)
-                        .setContentTitle("Лиза Алерт: Волонтеры") // title for notification
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("Искатель") // title for notification
                         .setContentText("Отрисовка маршрута")// message for notification
                         .setContentIntent(resultPendingIntent);
                 Notification notification = builder.build();
