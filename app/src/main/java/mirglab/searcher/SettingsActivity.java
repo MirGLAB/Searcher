@@ -140,6 +140,11 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         number = findViewById(R.id.coordinatorNumber);
+        String savedText = CustomSharedPreferences.getDefaults("settingsNumber", context);
+        if(savedText != null) {
+            if (!savedText.equals(""))
+                number.setText(savedText);
+        }
 
         /*
         lizaAlertForum = findViewById(R.id.lizaAlertForum);

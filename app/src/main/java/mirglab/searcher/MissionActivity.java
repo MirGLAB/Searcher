@@ -42,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -159,15 +160,19 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
         Log.d(LOG_TAG, "missionRestart " + missionRestart);
         Log.d(LOG_TAG, "missionStarted " + missionStarted);
 
+        //buildGoogleApiClient();
+
         if ((missionStarted.equals("true"))&&(!missionRestart.equals("true"))) {
             super.onCreate(savedInstanceState);
 
             setContentView(R.layout.activity_mission_prepared);
 
+            /*
             if (mGoogleApiClient != null)
                 mGoogleApiClient.disconnect();
             unsubscribe();
             unpublish();
+             */
 
             isImageFitToScreen = false;
 
@@ -347,10 +352,12 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
                     photosPaths = cursor.getString(lostPhotosColIndex);
                     Log.d(LOG_TAG, "photosPaths = " + photosPaths);
                     if(!photosPaths.equals("")) {
+
                         //byte[] photoBytes = photosPaths.getBytes();
                         //File imgFile = new File(photosPaths);
-                        final Bitmap photo = BitmapFactory.decodeFile("/storage/emulated/0/VK/Downloads/TOUkLwy6Xt0(1).jpg");
+                        //final Bitmap photo = BitmapFactory.decodeFile("/storage/emulated/0/VK/Downloads/TOUkLwy6Xt0(1).jpg");
                         //lostPhoto1.setImageBitmap(photo);
+
                         lostPhoto1.setImageURI(Uri.parse(photosPaths));
                         lostPhoto1.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -468,7 +475,7 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
             btnStopRequestService.setVisibility(View.INVISIBLE);
              */
 
-            buildGoogleApiClient();
+            //buildGoogleApiClient();
 
             btnStartRequestService = findViewById(R.id.btnStartRequestService);
             btnStartRequestService.setTag(1);
@@ -532,9 +539,12 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
                                         "|" + lostDescription.getText() + "|" + etLtdString + "|" + etLngString +
                                         "|" + number + "|" + photoURL).getBytes(Charset.forName("UTF-8")));
                                 Log.d(LOG_TAG, mPubMessage.toString());
-                                //buildGoogleApiClient();
-                                publish();
-                                subscribe();
+                                Log.d("____", Boolean.toString(isGooglePlayServicesAvailable()));
+                                buildGoogleApiClient();
+
+                                //publish();
+                                //subscribe();
+
                             } else {
                                 Toast.makeText(context, "Укажите номер телефона в настройках", Toast.LENGTH_SHORT).show();
                             }
@@ -900,6 +910,8 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
 
     private void buildGoogleApiClient() {
         if (mGoogleApiClient != null) {
+            Log.d("____", "mGoogleApiClient уже подключен");
+            mGoogleApiClient.connect();
             return;
         }
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -937,6 +949,7 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
                 }).build();
 
         if ((mGoogleApiClient != null) && (mPubMessage != null)) {
+            Log.d("____", mGoogleApiClient.toString());
             Nearby.Messages.publish(mGoogleApiClient, mPubMessage, options)
                     .setResultCallback(new ResultCallback<Status>() {
                         @Override
@@ -1188,5 +1201,15 @@ public class MissionActivity extends AppCompatActivity implements GoogleApiClien
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {}
+    }
+
+    private boolean isGooglePlayServicesAvailable() {
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (ConnectionResult.SUCCESS == status) {
+            return true;
+        } else {
+            GooglePlayServicesUtil.getErrorDialog(status, this, 0).show();
+            return false;
+        }
     }
 }

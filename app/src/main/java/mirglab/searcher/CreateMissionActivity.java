@@ -5,6 +5,8 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class CreateMissionActivity extends AppCompatActivity {
     EditText newLostInfo, newLostDescription;
     Button btnLoadPhoto, btnCreate;
     ArrayList<ImageView> newLostPhotos;
+    ImageView newLostPhoto;
     ArrayList<String> photos;
     //ArrayList<Uri> lostPhotosUri;
     //DBHelper dbHelper;
@@ -54,6 +58,8 @@ public class CreateMissionActivity extends AppCompatActivity {
         newLostPhotos.add((ImageView)findViewById(R.id.newLostPhoto2));
         newLostPhotos.add((ImageView)findViewById(R.id.newLostPhoto3));
 
+        newLostPhoto = (ImageView)findViewById(R.id.newLostPhoto1);
+
         btnLoadPhoto = findViewById(R.id.btnLoadPhoto);
         btnLoadPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +67,7 @@ public class CreateMissionActivity extends AppCompatActivity {
 
                 Intent intent = new Intent();
                 intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false); //только одно фото
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
@@ -97,6 +103,7 @@ public class CreateMissionActivity extends AppCompatActivity {
 
                 //Операции нельзя создавать пока что, нужно разрбраться с присвоением ID
                 //можно брать ID последней записи и прибоавлять 1
+                //Вроде я это починил (^), но уверенности нет, коммент удалять не буду
                 db.addRec("Operations", info);
 
                 //setResult(RESULT_OK);
@@ -121,12 +128,21 @@ public class CreateMissionActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (intent.getData() != null) {
                 try {
+                    /*
                     Uri uri = intent.getData();
                     photos = new ArrayList<>();
                     photos.add(getRealPathFromURI(this, uri));
                     //photos.add(uri.toString());
                     Log.d(LOG_TAG, "photo path = " + photos.get(0));
                     newLostPhotos.get(0).setImageURI(uri);
+                    */
+
+                    Uri uri = intent.getData();
+                    InputStream is = getContentResolver().openInputStream(uri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    newLostPhoto.setImageBitmap(bitmap);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
